@@ -2,6 +2,7 @@ package com.depthclock.tv;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.WebView;
@@ -16,6 +17,24 @@ public class MainActivity extends Activity {
         web = ClockView.create(this);
         setContentView(web);
         hideSystemUi();
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN && web != null) {
+            int key = event.getKeyCode();
+            if (key == KeyEvent.KEYCODE_DPAD_LEFT) {
+                web.evaluateJavascript("window.nextScene&&window.nextScene(-1)", null);
+                return true;
+            }
+            if (key == KeyEvent.KEYCODE_DPAD_RIGHT
+                    || key == KeyEvent.KEYCODE_DPAD_CENTER
+                    || key == KeyEvent.KEYCODE_ENTER) {
+                web.evaluateJavascript("window.nextScene&&window.nextScene(1)", null);
+                return true;
+            }
+        }
+        return super.dispatchKeyEvent(event);
     }
 
     @Override
