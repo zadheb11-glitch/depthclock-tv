@@ -7,6 +7,8 @@ Android TV app with three parts:
 
 Top-right quick buttons open search, Wi-Fi, Bluetooth, sound, display, storage and settings. The date shows top-left.
 
+Turn on Depth Launcher in Settings > Accessibility to make it the main home screen (the Home button opens it).
+
 Long-press OK on an app in the launcher to move it, hide it (long-press the Settings tile to show hidden apps again), change its icon (10 built-in icons or your own image), or reset it.
 
 Build: upload this folder to a private GitHub repository, open Actions, run "Build APK",
