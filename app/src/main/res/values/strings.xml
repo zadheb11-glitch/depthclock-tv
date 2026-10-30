@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Depth Clock</string>
+    <string name="app_name">Depth Launcher</string>
     <string name="launcher_name">Depth Launcher</string>
+    <string name="clock_name">Depth Clock</string>
+    <string name="accessibility_label">Depth Launcher</string>
+    <string name="accessibility_description">Makes Depth Launcher your main home screen. The Home button and the original launcher open Depth Launcher instead.</string>
 </resources>

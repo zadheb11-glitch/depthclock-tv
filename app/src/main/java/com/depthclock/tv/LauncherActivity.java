@@ -138,7 +138,7 @@ public class LauncherActivity extends Activity {
         pillBg.setColor(0x7014182E);
         pillBg.setStroke(dp(1), 0x33FFFFFF);
         pill.setBackground(pillBg);
-        pill.setPadding(dp(20), dp(8), dp(10), dp(8));
+        pill.setPadding(dp(22), dp(10), dp(14), dp(10));
 
         TextClock timeView = new TextClock(this);
         timeView.setFormat12Hour("h:mm a");
@@ -148,19 +148,19 @@ public class LauncherActivity extends Activity {
         timeView.setTypeface(Typeface.DEFAULT_BOLD);
         pill.addView(timeView, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        pill.addView(makeQuickButton("wifi", new Runnable() {
+        pill.addView(makeQuickButton(IconView.WIFI, new Runnable() {
             @Override
             public void run() {
                 openSettingsAction(Settings.ACTION_WIFI_SETTINGS);
             }
         }, null));
-        pill.addView(makeQuickButton("display", new Runnable() {
+        pill.addView(makeQuickButton(IconView.WALLPAPER, new Runnable() {
             @Override
             public void run() {
                 nextScene();
             }
         }, null));
-        pill.addView(makeQuickButton("settings", new Runnable() {
+        pill.addView(makeQuickButton(IconView.SETTINGS, new Runnable() {
             @Override
             public void run() {
                 openSettingsAction(Settings.ACTION_SETTINGS);
@@ -181,37 +181,23 @@ public class LauncherActivity extends Activity {
         hideSystemUi();
     }
 
-    private View makeQuickButton(String asset, final Runnable click, final Runnable longClick) {
+    private View makeQuickButton(int iconType, final Runnable click, final Runnable longClick) {
         final FrameLayout button = new FrameLayout(this);
         button.setFocusable(true);
         final GradientDrawable bg = new GradientDrawable();
         bg.setShape(GradientDrawable.OVAL);
-        bg.setColor(0x22FFFFFF);
+        bg.setColor(0x33FFFFFF);
         button.setBackground(bg);
-        final ImageView icon = new ImageView(this);
-        InputStream in = null;
-        try {
-            in = getAssets().open("qs/" + asset + ".png");
-            icon.setImageBitmap(BitmapFactory.decodeStream(in));
-        } catch (IOException ignored) {
-        } finally {
-            try {
-                if (in != null) in.close();
-            } catch (IOException ignored) {
-            }
-        }
+        final IconView icon = new IconView(this, iconType);
         button.addView(icon, new FrameLayout.LayoutParams(dp(22), dp(22), Gravity.CENTER));
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(dp(44), dp(44));
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(dp(42), dp(42));
         lp.leftMargin = dp(10);
         button.setLayoutParams(lp);
         button.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                float sc = hasFocus ? 1.15f : 1f;
-                v.animate().scaleX(sc).scaleY(sc).setDuration(140).start();
-                bg.setColor(hasFocus ? 0xF2FFFFFF : 0x22FFFFFF);
-                if (hasFocus) icon.setColorFilter(0xFF14162B);
-                else icon.clearColorFilter();
+                bg.setColor(hasFocus ? 0xF2FFFFFF : 0x33FFFFFF);
+                icon.setColor(hasFocus ? 0xFF14162B : 0xFFFFFFFF);
             }
         });
         button.setOnClickListener(new View.OnClickListener() {
